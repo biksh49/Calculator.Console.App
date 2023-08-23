@@ -32,7 +32,7 @@ namespace ConsoleApp1
                 do
                 {
                     Console.Write("\nEnter the Number corresponding to your task according to above list:");
-                    String userInput = Console.ReadLine();
+                    string userInput = Console.ReadLine();
                     Console.WriteLine();
 
                     if (userInput != null && int.TryParse(userInput, out int options))
@@ -221,11 +221,12 @@ namespace ConsoleApp1
 
         public static void NDiff()
         {
-            int diff, temp;
+            int diff;
 
             Console.Write("How many numbers do you want to find the difference of:");
             int number = int.Parse(Console.ReadLine());
             int[] arrayNum = new int[number];
+            int[] sortedArray = new int[number];
             Console.WriteLine("Enter your Numbers:");
 
             for (int i = 0; i < number; i++)
@@ -233,24 +234,13 @@ namespace ConsoleApp1
                 arrayNum[i] = int.Parse(Console.ReadLine());
             }
 
-            for (int i = 0; i < number; i++)
-            {
-                for (int j = i; j < number; j++)
-                {
-                    if (arrayNum[j] > arrayNum[i])
-                    {
-                        temp = arrayNum[j];
-                        arrayNum[j] = arrayNum[i];
-                        arrayNum[i] = temp;
-                    }
-                }
-            }
+            sortedArray = BubbleSort(arrayNum, number);
 
-            diff = arrayNum[0];
+            diff = sortedArray[0];
 
             for (int i = 1; i < number; i++)
             {
-                diff = diff - arrayNum[i];
+                diff = diff - sortedArray[i];
             }
             Console.WriteLine($"Difference of given numbers is: {diff}");
         }
@@ -281,6 +271,25 @@ namespace ConsoleApp1
             int number = int.Parse(Console.ReadLine());
             int sum = NSum(number);
             Console.WriteLine($"Average of given numbers is: {sum / number}");
+        }
+
+        public static int[] BubbleSort(int[] arrayNum, int number)
+        {
+            int temp;
+
+            for (int i = 0; i < number; i++)
+            {
+                for (int j = i; j < number; j++)
+                {
+                    if (arrayNum[j] > arrayNum[i])
+                    {
+                        temp = arrayNum[j];
+                        arrayNum[j] = arrayNum[i];
+                        arrayNum[i] = temp;
+                    }
+                }
+            }
+            return arrayNum;
         }
     }
 }
